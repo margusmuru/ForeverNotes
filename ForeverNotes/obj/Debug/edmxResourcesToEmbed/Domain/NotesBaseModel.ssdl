@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ForeverNotes.Domain.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="GroupConnection">
+    <Key>
+      <PropertyRef Name="GroupConnectionID" />
+    </Key>
+    <Property Name="GroupConnectionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NoteID" Type="int" Nullable="false" />
+    <Property Name="NoteGroupID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Note">
+    <Key>
+      <PropertyRef Name="NoteID" />
+    </Key>
+    <Property Name="NoteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Heading" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Content" Type="text" />
+    <Property Name="DateCreated" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="DateModified" Type="datetime2" Precision="7" Nullable="false" />
+  </EntityType>
+  <EntityType Name="NoteGroup">
+    <Key>
+      <PropertyRef Name="NoteGroupID" />
+    </Key>
+    <Property Name="NoteGroupID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="DateModified" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tag">
+    <Key>
+      <PropertyRef Name="TagID" />
+    </Key>
+    <Property Name="TagID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="DateModified" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TagConnection">
+    <Key>
+      <PropertyRef Name="TagConnectionID" />
+    </Key>
+    <Property Name="TagConnectionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NoteID" Type="int" Nullable="false" />
+    <Property Name="TagID" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_GroupConnection_ToNote">
+    <End Role="Note" Type="Self.Note" Multiplicity="1" />
+    <End Role="GroupConnection" Type="Self.GroupConnection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Note">
+        <PropertyRef Name="NoteID" />
+      </Principal>
+      <Dependent Role="GroupConnection">
+        <PropertyRef Name="NoteID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GroupConnection_ToNoteGroup">
+    <End Role="NoteGroup" Type="Self.NoteGroup" Multiplicity="1" />
+    <End Role="GroupConnection" Type="Self.GroupConnection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NoteGroup">
+        <PropertyRef Name="NoteGroupID" />
+      </Principal>
+      <Dependent Role="GroupConnection">
+        <PropertyRef Name="NoteGroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TagConnection_Note">
+    <End Role="Note" Type="Self.Note" Multiplicity="1" />
+    <End Role="TagConnection" Type="Self.TagConnection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Note">
+        <PropertyRef Name="NoteID" />
+      </Principal>
+      <Dependent Role="TagConnection">
+        <PropertyRef Name="NoteID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TagConnection_Tag">
+    <End Role="Tag" Type="Self.Tag" Multiplicity="1" />
+    <End Role="TagConnection" Type="Self.TagConnection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tag">
+        <PropertyRef Name="TagID" />
+      </Principal>
+      <Dependent Role="TagConnection">
+        <PropertyRef Name="TagID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ForeverNotesDomainStoreContainer">
+    <EntitySet Name="GroupConnection" EntityType="Self.GroupConnection" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Note" EntityType="Self.Note" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NoteGroup" EntityType="Self.NoteGroup" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tag" EntityType="Self.Tag" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TagConnection" EntityType="Self.TagConnection" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_GroupConnection_ToNote" Association="Self.FK_GroupConnection_ToNote">
+      <End Role="Note" EntitySet="Note" />
+      <End Role="GroupConnection" EntitySet="GroupConnection" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GroupConnection_ToNoteGroup" Association="Self.FK_GroupConnection_ToNoteGroup">
+      <End Role="NoteGroup" EntitySet="NoteGroup" />
+      <End Role="GroupConnection" EntitySet="GroupConnection" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TagConnection_Note" Association="Self.FK_TagConnection_Note">
+      <End Role="Note" EntitySet="Note" />
+      <End Role="TagConnection" EntitySet="TagConnection" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TagConnection_Tag" Association="Self.FK_TagConnection_Tag">
+      <End Role="Tag" EntitySet="Tag" />
+      <End Role="TagConnection" EntitySet="TagConnection" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
