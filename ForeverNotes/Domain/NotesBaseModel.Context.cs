@@ -30,5 +30,9 @@ namespace ForeverNotes.Domain
         public virtual DbSet<NoteGroup> NoteGroup { get; set; }
         public virtual DbSet<Tag> Tag { get; set; }
         public virtual DbSet<TagConnection> TagConnection { get; set; }
+        public virtual DbSet<ToDo> ToDo { get; set; }
+        public virtual DbSet<ToDoGroup> ToDoGroup { get; set; }
+        public virtual DbSet<ToDoGroupConnection> ToDoGroupConnection { get; set; }
+        public virtual DbSet<RssFeed> RssFeed { get; set; }
     }
 }

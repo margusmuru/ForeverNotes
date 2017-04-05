@@ -2,7 +2,7 @@
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="ForeverNotesDomainStoreContainer" CdmEntityContainer="ForeverNotesEntities">
     <EntitySetMapping Name="GroupConnection">
-      <EntityTypeMapping TypeName="ForeverNotes.Domain.GroupConnection">
+      <EntityTypeMapping TypeName="IsTypeOf(ForeverNotes.Domain.GroupConnection)">
         <MappingFragment StoreEntitySet="GroupConnection">
           <ScalarProperty Name="GroupConnectionID" ColumnName="GroupConnectionID" />
           <ScalarProperty Name="NoteID" ColumnName="NoteID" />
@@ -11,7 +11,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Note">
-      <EntityTypeMapping TypeName="ForeverNotes.Domain.Note">
+      <EntityTypeMapping TypeName="IsTypeOf(ForeverNotes.Domain.Note)">
         <MappingFragment StoreEntitySet="Note">
           <ScalarProperty Name="NoteID" ColumnName="NoteID" />
           <ScalarProperty Name="Heading" ColumnName="Heading" />
@@ -22,7 +22,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="NoteGroup">
-      <EntityTypeMapping TypeName="ForeverNotes.Domain.NoteGroup">
+      <EntityTypeMapping TypeName="IsTypeOf(ForeverNotes.Domain.NoteGroup)">
         <MappingFragment StoreEntitySet="NoteGroup">
           <ScalarProperty Name="NoteGroupID" ColumnName="NoteGroupID" />
           <ScalarProperty Name="Name" ColumnName="Name" />
@@ -32,7 +32,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Tag">
-      <EntityTypeMapping TypeName="ForeverNotes.Domain.Tag">
+      <EntityTypeMapping TypeName="IsTypeOf(ForeverNotes.Domain.Tag)">
         <MappingFragment StoreEntitySet="Tag">
           <ScalarProperty Name="TagID" ColumnName="TagID" />
           <ScalarProperty Name="Name" ColumnName="Name" />
@@ -42,11 +42,52 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="TagConnection">
-      <EntityTypeMapping TypeName="ForeverNotes.Domain.TagConnection">
+      <EntityTypeMapping TypeName="IsTypeOf(ForeverNotes.Domain.TagConnection)">
         <MappingFragment StoreEntitySet="TagConnection">
           <ScalarProperty Name="TagConnectionID" ColumnName="TagConnectionID" />
           <ScalarProperty Name="NoteID" ColumnName="NoteID" />
           <ScalarProperty Name="TagID" ColumnName="TagID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ToDo">
+      <EntityTypeMapping TypeName="ForeverNotes.Domain.ToDo">
+        <MappingFragment StoreEntitySet="ToDo">
+          <ScalarProperty Name="Prioroty" ColumnName="Prioroty" />
+          <ScalarProperty Name="Checked" ColumnName="Checked" />
+          <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="ToDoID" ColumnName="ToDoID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ToDoGroup">
+      <EntityTypeMapping TypeName="ForeverNotes.Domain.ToDoGroup">
+        <MappingFragment StoreEntitySet="ToDoGroup">
+          <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ToDoGroupID" ColumnName="ToDoGroupID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ToDoGroupConnection">
+      <EntityTypeMapping TypeName="ForeverNotes.Domain.ToDoGroupConnection">
+        <MappingFragment StoreEntitySet="ToDoGroupConnection">
+          <ScalarProperty Name="ToDoGroup_ToDoGroupID" ColumnName="ToDoGroup_ToDoGroupID" />
+          <ScalarProperty Name="ToDo_ToDoID" ColumnName="ToDo_ToDoID" />
+          <ScalarProperty Name="ToDoGroupConnectionID" ColumnName="ToDoGroupConnectionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RssFeed">
+      <EntityTypeMapping TypeName="ForeverNotes.Domain.RssFeed">
+        <MappingFragment StoreEntitySet="RssFeed">
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="FeedID" ColumnName="FeedID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

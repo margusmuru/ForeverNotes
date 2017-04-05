@@ -10,17 +10,19 @@ namespace ForeverNotes.ConsoleApp
 {
     class Program
     {
+        /*
         static void Main(string[] args)
         {
-            AddNote();
-            GetNoteByID(0);
+            //AddNote();
+
+            GetNoteByID(1);
 
             GetNoteByModifiedDate(new DateTime(2016, 10, 30, 23, 5, 0), DateTime.Now);
             GetNoteByCreatedDate(new DateTime(2016, 10, 30, 23, 5, 0), DateTime.Now);
 
             GetAllNotes();
         }
-
+        
         static void AddNote()
         {
             NoteService.AddNote("pealkiri", "suurepärane sisu");
@@ -58,5 +60,6 @@ namespace ForeverNotes.ConsoleApp
                 Console.WriteLine(item.NoteID + " " + item.Heading + " " + item.DateModified);
             }
         }
+        */
     }
 }

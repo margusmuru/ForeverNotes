@@ -5,15 +5,21 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="af7753bda9a74b6dbc40b41273e0a301" Name="Diagram1">
-        <EntityTypeShape EntityType="ForeverNotes.Domain.GroupConnection" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ForeverNotes.Domain.GroupConnection" Width="1.5" PointX="4.375" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ForeverNotes.Domain.Note" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ForeverNotes.Domain.NoteGroup" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ForeverNotes.Domain.Tag" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ForeverNotes.Domain.TagConnection" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ForeverNotes.Domain.TagConnection" Width="1.5" PointX="3.25" PointY="0.625" IsExpanded="true" />
         <AssociationConnector Association="ForeverNotes.Domain.FK_GroupConnection_ToNote" ManuallyRouted="false" />
         <AssociationConnector Association="ForeverNotes.Domain.FK_GroupConnection_ToNoteGroup" ManuallyRouted="false" />
         <AssociationConnector Association="ForeverNotes.Domain.FK_TagConnection_Note" ManuallyRouted="false" />
         <AssociationConnector Association="ForeverNotes.Domain.FK_TagConnection_Tag" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ForeverNotes.Domain.ToDo" Width="1.5" PointX="6.375" PointY="7" />
+        <EntityTypeShape EntityType="ForeverNotes.Domain.ToDoGroup" Width="1.5" PointX="6.375" PointY="0.875" />
+        <EntityTypeShape EntityType="ForeverNotes.Domain.ToDoGroupConnection" Width="1.5" PointX="8.625" PointY="0.875" />
+        <AssociationConnector Association="ForeverNotes.Domain.ToDoGroupConnection_ToDo" />
+        <AssociationConnector Association="ForeverNotes.Domain.ToDoGroupConnection_ToDoGroup" />
+        <EntityTypeShape EntityType="ForeverNotes.Domain.RssFeed" Width="1.5" PointX="6.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -1,10 +1,20 @@
-D:\OneDrive\Documents\Visual Studio 2015\Projects\C-Sharp\ForeverNotes\ForeverNotes\bin\Debug\ForeverNotes.dll.config
-D:\OneDrive\Documents\Visual Studio 2015\Projects\C-Sharp\ForeverNotes\ForeverNotes\bin\Debug\ForeverNotes.dll
-D:\OneDrive\Documents\Visual Studio 2015\Projects\C-Sharp\ForeverNotes\ForeverNotes\bin\Debug\ForeverNotes.pdb
-D:\OneDrive\Documents\Visual Studio 2015\Projects\C-Sharp\ForeverNotes\ForeverNotes\bin\Debug\EntityFramework.dll
-D:\OneDrive\Documents\Visual Studio 2015\Projects\C-Sharp\ForeverNotes\ForeverNotes\bin\Debug\EntityFramework.SqlServer.dll
-D:\OneDrive\Documents\Visual Studio 2015\Projects\C-Sharp\ForeverNotes\ForeverNotes\bin\Debug\EntityFramework.xml
-D:\OneDrive\Documents\Visual Studio 2015\Projects\C-Sharp\ForeverNotes\ForeverNotes\bin\Debug\EntityFramework.SqlServer.xml
-D:\OneDrive\Documents\Visual Studio 2015\Projects\C-Sharp\ForeverNotes\ForeverNotes\obj\Debug\ForeverNotes.csprojResolveAssemblyReference.cache
-D:\OneDrive\Documents\Visual Studio 2015\Projects\C-Sharp\ForeverNotes\ForeverNotes\obj\Debug\ForeverNotes.dll
-D:\OneDrive\Documents\Visual Studio 2015\Projects\C-Sharp\ForeverNotes\ForeverNotes\obj\Debug\ForeverNotes.pdb
+D:\OneDrive\Developer\VisualStudioWorkSpace\ForeverNotes\ForeverNotes\ForeverNotes\bin\Debug\ForeverNotes.dll.config
+D:\OneDrive\Developer\VisualStudioWorkSpace\ForeverNotes\ForeverNotes\ForeverNotes\bin\Debug\ForeverNotes.dll
+D:\OneDrive\Developer\VisualStudioWorkSpace\ForeverNotes\ForeverNotes\ForeverNotes\bin\Debug\ForeverNotes.pdb
+D:\OneDrive\Developer\VisualStudioWorkSpace\ForeverNotes\ForeverNotes\ForeverNotes\bin\Debug\EntityFramework.dll
+D:\OneDrive\Developer\VisualStudioWorkSpace\ForeverNotes\ForeverNotes\ForeverNotes\bin\Debug\EntityFramework.SqlServer.dll
+D:\OneDrive\Developer\VisualStudioWorkSpace\ForeverNotes\ForeverNotes\ForeverNotes\bin\Debug\EntityFramework.xml
+D:\OneDrive\Developer\VisualStudioWorkSpace\ForeverNotes\ForeverNotes\ForeverNotes\bin\Debug\EntityFramework.SqlServer.xml
+D:\OneDrive\Developer\VisualStudioWorkSpace\ForeverNotes\ForeverNotes\ForeverNotes\obj\Debug\ForeverNotes.csprojResolveAssemblyReference.cache
+D:\OneDrive\Developer\VisualStudioWorkSpace\ForeverNotes\ForeverNotes\ForeverNotes\obj\Debug\ForeverNotes.dll
+D:\OneDrive\Developer\VisualStudioWorkSpace\ForeverNotes\ForeverNotes\ForeverNotes\obj\Debug\ForeverNotes.pdb
+C:\Users\margu\OneDrive\Developer\VisualStudioWorkSpace\ForeverNotes\ForeverNotes\ForeverNotes\bin\Debug\ForeverNotes.dll.config
+C:\Users\margu\OneDrive\Developer\VisualStudioWorkSpace\ForeverNotes\ForeverNotes\ForeverNotes\bin\Debug\ForeverNotes.dll
+C:\Users\margu\OneDrive\Developer\VisualStudioWorkSpace\ForeverNotes\ForeverNotes\ForeverNotes\bin\Debug\ForeverNotes.pdb
+C:\Users\margu\OneDrive\Developer\VisualStudioWorkSpace\ForeverNotes\ForeverNotes\ForeverNotes\bin\Debug\EntityFramework.dll
+C:\Users\margu\OneDrive\Developer\VisualStudioWorkSpace\ForeverNotes\ForeverNotes\ForeverNotes\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\margu\OneDrive\Developer\VisualStudioWorkSpace\ForeverNotes\ForeverNotes\ForeverNotes\bin\Debug\EntityFramework.xml
+C:\Users\margu\OneDrive\Developer\VisualStudioWorkSpace\ForeverNotes\ForeverNotes\ForeverNotes\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\margu\OneDrive\Developer\VisualStudioWorkSpace\ForeverNotes\ForeverNotes\ForeverNotes\obj\Debug\ForeverNotes.csprojResolveAssemblyReference.cache
+C:\Users\margu\OneDrive\Developer\VisualStudioWorkSpace\ForeverNotes\ForeverNotes\ForeverNotes\obj\Debug\ForeverNotes.dll
+C:\Users\margu\OneDrive\Developer\VisualStudioWorkSpace\ForeverNotes\ForeverNotes\ForeverNotes\obj\Debug\ForeverNotes.pdb

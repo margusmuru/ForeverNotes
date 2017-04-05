@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'D:\OneDrive\Documents\Visual Studio 2015\Projects\C-Sharp\ForeverNotes\ForeverNotes\Domain\NotesBaseModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\User\Desktop\csharpiprojekt\ForeverNotes\ForeverNotes\ForeverNotes\Domain\NotesBaseModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

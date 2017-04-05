@@ -1,12 +1,1 @@
-D:\OneDrive\Documents\Visual Studio 2015\Projects\C-Sharp\ForeverNotes\ForeverNotes.ConsoleApp\bin\Debug\ForeverNotes.ConsoleApp.exe.config
-D:\OneDrive\Documents\Visual Studio 2015\Projects\C-Sharp\ForeverNotes\ForeverNotes.ConsoleApp\bin\Debug\ForeverNotes.ConsoleApp.exe
-D:\OneDrive\Documents\Visual Studio 2015\Projects\C-Sharp\ForeverNotes\ForeverNotes.ConsoleApp\bin\Debug\ForeverNotes.ConsoleApp.pdb
-D:\OneDrive\Documents\Visual Studio 2015\Projects\C-Sharp\ForeverNotes\ForeverNotes.ConsoleApp\bin\Debug\EntityFramework.dll
-D:\OneDrive\Documents\Visual Studio 2015\Projects\C-Sharp\ForeverNotes\ForeverNotes.ConsoleApp\bin\Debug\EntityFramework.SqlServer.dll
-D:\OneDrive\Documents\Visual Studio 2015\Projects\C-Sharp\ForeverNotes\ForeverNotes.ConsoleApp\bin\Debug\ForeverNotes.dll
-D:\OneDrive\Documents\Visual Studio 2015\Projects\C-Sharp\ForeverNotes\ForeverNotes.ConsoleApp\bin\Debug\ForeverNotes.pdb
-D:\OneDrive\Documents\Visual Studio 2015\Projects\C-Sharp\ForeverNotes\ForeverNotes.ConsoleApp\bin\Debug\EntityFramework.xml
-D:\OneDrive\Documents\Visual Studio 2015\Projects\C-Sharp\ForeverNotes\ForeverNotes.ConsoleApp\bin\Debug\EntityFramework.SqlServer.xml
-D:\OneDrive\Documents\Visual Studio 2015\Projects\C-Sharp\ForeverNotes\ForeverNotes.ConsoleApp\obj\Debug\ForeverNotes.ConsoleApp.csprojResolveAssemblyReference.cache
-D:\OneDrive\Documents\Visual Studio 2015\Projects\C-Sharp\ForeverNotes\ForeverNotes.ConsoleApp\obj\Debug\ForeverNotes.ConsoleApp.exe
-D:\OneDrive\Documents\Visual Studio 2015\Projects\C-Sharp\ForeverNotes\ForeverNotes.ConsoleApp\obj\Debug\ForeverNotes.ConsoleApp.pdb
+D:\OneDrive\Developer\VisualStudioWorkSpace\ForeverNotes\ForeverNotes\ForeverNotes.ConsoleApp\obj\Debug\ForeverNotes.ConsoleApp.csprojResolveAssemblyReference.cache

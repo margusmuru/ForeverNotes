@@ -14,9 +14,9 @@
     </Key>
     <Property Name="NoteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Heading" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="Content" Type="text" />
-    <Property Name="DateCreated" Type="datetime2" Precision="7" Nullable="false" />
-    <Property Name="DateModified" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="Content" Type="varchar(max)" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="DateModified" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="NoteGroup">
     <Key>
@@ -26,6 +26,15 @@
     <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="DateCreated" Type="datetime" Nullable="false" />
     <Property Name="DateModified" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RssFeed">
+    <Key>
+      <PropertyRef Name="FeedID" />
+    </Key>
+    <Property Name="FeedID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Url" Type="nvarchar" MaxLength="200" Nullable="false" />
   </EntityType>
   <EntityType Name="Tag">
     <Key>
@@ -43,6 +52,34 @@
     <Property Name="TagConnectionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="NoteID" Type="int" Nullable="false" />
     <Property Name="TagID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ToDo">
+    <Key>
+      <PropertyRef Name="ToDoID" />
+    </Key>
+    <Property Name="ToDoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Content" Type="varchar(max)" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="DateModified" Type="datetime" Nullable="false" />
+    <Property Name="Checked" Type="bit" />
+    <Property Name="Prioroty" Type="bit" />
+  </EntityType>
+  <EntityType Name="ToDoGroup">
+    <Key>
+      <PropertyRef Name="ToDoGroupID" />
+    </Key>
+    <Property Name="ToDoGroupID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="DateModified" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ToDoGroupConnection">
+    <Key>
+      <PropertyRef Name="ToDoGroupConnectionID" />
+    </Key>
+    <Property Name="ToDoGroupConnectionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ToDo_ToDoID" Type="int" Nullable="false" />
+    <Property Name="ToDoGroup_ToDoGroupID" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="FK_GroupConnection_ToNote">
     <End Role="Note" Type="Self.Note" Multiplicity="1" />
@@ -92,12 +129,40 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_ToDoGroupConnection_ToDo">
+    <End Role="ToDo" Type="Self.ToDo" Multiplicity="1" />
+    <End Role="ToDoGroupConnection" Type="Self.ToDoGroupConnection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ToDo">
+        <PropertyRef Name="ToDoID" />
+      </Principal>
+      <Dependent Role="ToDoGroupConnection">
+        <PropertyRef Name="ToDo_ToDoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ToDoGroupConnection_ToDoGroup">
+    <End Role="ToDoGroup" Type="Self.ToDoGroup" Multiplicity="1" />
+    <End Role="ToDoGroupConnection" Type="Self.ToDoGroupConnection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ToDoGroup">
+        <PropertyRef Name="ToDoGroupID" />
+      </Principal>
+      <Dependent Role="ToDoGroupConnection">
+        <PropertyRef Name="ToDoGroup_ToDoGroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="ForeverNotesDomainStoreContainer">
     <EntitySet Name="GroupConnection" EntityType="Self.GroupConnection" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Note" EntityType="Self.Note" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="NoteGroup" EntityType="Self.NoteGroup" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RssFeed" EntityType="Self.RssFeed" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Tag" EntityType="Self.Tag" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TagConnection" EntityType="Self.TagConnection" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ToDo" EntityType="Self.ToDo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ToDoGroup" EntityType="Self.ToDoGroup" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ToDoGroupConnection" EntityType="Self.ToDoGroupConnection" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_GroupConnection_ToNote" Association="Self.FK_GroupConnection_ToNote">
       <End Role="Note" EntitySet="Note" />
       <End Role="GroupConnection" EntitySet="GroupConnection" />
@@ -113,6 +178,14 @@
     <AssociationSet Name="FK_TagConnection_Tag" Association="Self.FK_TagConnection_Tag">
       <End Role="Tag" EntitySet="Tag" />
       <End Role="TagConnection" EntitySet="TagConnection" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ToDoGroupConnection_ToDo" Association="Self.FK_ToDoGroupConnection_ToDo">
+      <End Role="ToDo" EntitySet="ToDo" />
+      <End Role="ToDoGroupConnection" EntitySet="ToDoGroupConnection" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ToDoGroupConnection_ToDoGroup" Association="Self.FK_ToDoGroupConnection_ToDoGroup">
+      <End Role="ToDoGroup" EntitySet="ToDoGroup" />
+      <End Role="ToDoGroupConnection" EntitySet="ToDoGroupConnection" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

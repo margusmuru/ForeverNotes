@@ -15,6 +15,21 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -55,8 +70,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BO\NoteBO.cs" />
-    <Compile Include="Class1.cs" />
+    <Compile Include="BO\FeedBo.cs" />
+    <Compile Include="BO\NewsBo.cs" />
+    <Compile Include="BO\NoteBo.cs" />
+    <Compile Include="BO\NoteGroupBo.cs" />
+    <Compile Include="BO\ToDoBo.cs" />
+    <Compile Include="BO\ToDoGroupBo.cs" />
     <Compile Include="Domain\GroupConnection.cs">
       <DependentUpon>NotesBaseModel.tt</DependentUpon>
     </Compile>
@@ -81,14 +100,32 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>NotesBaseModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Domain\RssFeed.cs">
+      <DependentUpon>NotesBaseModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Domain\Tag.cs">
       <DependentUpon>NotesBaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Domain\TagConnection.cs">
       <DependentUpon>NotesBaseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Domain\ToDo.cs">
+      <DependentUpon>NotesBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\ToDoGroup.cs">
+      <DependentUpon>NotesBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\ToDoGroupConnection.cs">
+      <DependentUpon>NotesBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Enums.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\ILogger.cs" />
+    <Compile Include="Service\Logger.cs" />
+    <Compile Include="Service\LogService.cs" />
     <Compile Include="Service\NoteService.cs" />
+    <Compile Include="Service\RssService.cs" />
+    <Compile Include="Service\ToDoService.cs" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="Domain\NotesBaseModel.edmx">
@@ -98,6 +135,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
     <None Include="Domain\NotesBaseModel.edmx.diagram">
       <DependentUpon>NotesBaseModel.edmx</DependentUpon>
     </None>
@@ -109,6 +148,7 @@
       <DependentUpon>NotesBaseModel.edmx</DependentUpon>
       <LastGenOutput>NotesBaseModel.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="Domain\NotesBaseModel.edmx.sql" />
     <Content Include="Domain\NotesBaseModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>NotesBaseModel.edmx</DependentUpon>
@@ -118,7 +158,18 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

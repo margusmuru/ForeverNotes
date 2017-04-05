@@ -17,8 +17,8 @@
     <Property Name="NoteID" Type="Int32" Nullable="false" />
     <Property Name="Heading" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="7" />
-    <Property Name="DateModified" Type="DateTime" Precision="7" Nullable="false" />
+    <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DateModified" Type="DateTime" Precision="3" Nullable="false" />
     <NavigationProperty Name="GroupConnection" Relationship="Self.FK_GroupConnection_ToNote" FromRole="Note" ToRole="GroupConnection" />
     <NavigationProperty Name="TagConnection" Relationship="Self.FK_TagConnection_Note" FromRole="Note" ToRole="TagConnection" />
   </EntityType>
@@ -122,5 +122,82 @@
       <End Role="Tag" EntitySet="Tag" />
       <End Role="TagConnection" EntitySet="TagConnection" />
     </AssociationSet>
+    <EntitySet Name="ToDo" EntityType="ForeverNotes.Domain.ToDo" />
+    <EntitySet Name="ToDoGroup" EntityType="ForeverNotes.Domain.ToDoGroup" />
+    <EntitySet Name="ToDoGroupConnection" EntityType="ForeverNotes.Domain.ToDoGroupConnection" />
+    <AssociationSet Name="ToDoGroupConnection_ToDo" Association="ForeverNotes.Domain.ToDoGroupConnection_ToDo">
+      <End Role="ToDo" EntitySet="ToDo" />
+      <End Role="ToDoGroupConnection" EntitySet="ToDoGroupConnection" />
+    </AssociationSet>
+    <AssociationSet Name="ToDoGroupConnection_ToDoGroup" Association="ForeverNotes.Domain.ToDoGroupConnection_ToDoGroup">
+      <End Role="ToDoGroup" EntitySet="ToDoGroup" />
+      <End Role="ToDoGroupConnection" EntitySet="ToDoGroupConnection" />
+    </AssociationSet>
+    <EntitySet Name="RssFeed" EntityType="ForeverNotes.Domain.RssFeed" />
   </EntityContainer>
+  <EntityType Name="ToDo">
+    <Key>
+      <PropertyRef Name="ToDoID" />
+    </Key>
+    <Property Name="ToDoID" Type="Int32" Nullable="false" />
+    <Property Name="Content" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Checked" Type="Boolean" />
+    <Property Name="Prioroty" Type="Boolean" />
+    <NavigationProperty Name="ToDoGroupConnection" Relationship="ForeverNotes.Domain.ToDoGroupConnection_ToDo" FromRole="ToDo" ToRole="ToDoGroupConnection" />
+  </EntityType>
+  <EntityType Name="ToDoGroup">
+    <Key>
+      <PropertyRef Name="ToDoGroupID" />
+    </Key>
+    <Property Name="ToDoGroupID" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="ToDoGroupConnection" Relationship="ForeverNotes.Domain.ToDoGroupConnection_ToDoGroup" FromRole="ToDoGroup" ToRole="ToDoGroupConnection" />
+  </EntityType>
+  <EntityType Name="ToDoGroupConnection">
+    <Key>
+      <PropertyRef Name="ToDoGroupConnectionID" />
+    </Key>
+    <Property Name="ToDoGroupConnectionID" Type="Int32" Nullable="false" />
+    <Property Name="ToDo_ToDoID" Type="Int32" Nullable="false" />
+    <Property Name="ToDoGroup_ToDoGroupID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ToDo" Relationship="ForeverNotes.Domain.ToDoGroupConnection_ToDo" FromRole="ToDoGroupConnection" ToRole="ToDo" />
+    <NavigationProperty Name="ToDoGroup" Relationship="ForeverNotes.Domain.ToDoGroupConnection_ToDoGroup" FromRole="ToDoGroupConnection" ToRole="ToDoGroup" />
+  </EntityType>
+  <Association Name="ToDoGroupConnection_ToDo">
+    <End Type="ForeverNotes.Domain.ToDo" Role="ToDo" Multiplicity="1" />
+    <End Type="ForeverNotes.Domain.ToDoGroupConnection" Role="ToDoGroupConnection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ToDo">
+        <PropertyRef Name="ToDoID" />
+      </Principal>
+      <Dependent Role="ToDoGroupConnection">
+        <PropertyRef Name="ToDo_ToDoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ToDoGroupConnection_ToDoGroup">
+    <End Type="ForeverNotes.Domain.ToDoGroup" Role="ToDoGroup" Multiplicity="1" />
+    <End Type="ForeverNotes.Domain.ToDoGroupConnection" Role="ToDoGroupConnection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ToDoGroup">
+        <PropertyRef Name="ToDoGroupID" />
+      </Principal>
+      <Dependent Role="ToDoGroupConnection">
+        <PropertyRef Name="ToDoGroup_ToDoGroupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="RssFeed">
+    <Key>
+      <PropertyRef Name="FeedID" />
+    </Key>
+    <Property Name="FeedID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Url" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+  </EntityType>
 </Schema>

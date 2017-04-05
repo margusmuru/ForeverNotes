@@ -19,9 +19,9 @@
           </Key>
           <Property Name="NoteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Heading" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="Content" Type="text" />
-          <Property Name="DateCreated" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="DateModified" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Content" Type="varchar(max)" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="NoteGroup">
           <Key>
@@ -31,6 +31,15 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
           <Property Name="DateModified" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RssFeed">
+          <Key>
+            <PropertyRef Name="FeedID" />
+          </Key>
+          <Property Name="FeedID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Url" Type="nvarchar" MaxLength="200" Nullable="false" />
         </EntityType>
         <EntityType Name="Tag">
           <Key>
@@ -48,6 +57,34 @@
           <Property Name="TagConnectionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NoteID" Type="int" Nullable="false" />
           <Property Name="TagID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ToDo">
+          <Key>
+            <PropertyRef Name="ToDoID" />
+          </Key>
+          <Property Name="ToDoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Content" Type="varchar(max)" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+          <Property Name="Checked" Type="bit" />
+          <Property Name="Prioroty" Type="bit" />
+        </EntityType>
+        <EntityType Name="ToDoGroup">
+          <Key>
+            <PropertyRef Name="ToDoGroupID" />
+          </Key>
+          <Property Name="ToDoGroupID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateModified" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ToDoGroupConnection">
+          <Key>
+            <PropertyRef Name="ToDoGroupConnectionID" />
+          </Key>
+          <Property Name="ToDoGroupConnectionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ToDo_ToDoID" Type="int" Nullable="false" />
+          <Property Name="ToDoGroup_ToDoGroupID" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_GroupConnection_ToNote">
           <End Role="Note" Type="Self.Note" Multiplicity="1" />
@@ -97,12 +134,40 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ToDoGroupConnection_ToDo">
+          <End Role="ToDo" Type="Self.ToDo" Multiplicity="1" />
+          <End Role="ToDoGroupConnection" Type="Self.ToDoGroupConnection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ToDo">
+              <PropertyRef Name="ToDoID" />
+            </Principal>
+            <Dependent Role="ToDoGroupConnection">
+              <PropertyRef Name="ToDo_ToDoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ToDoGroupConnection_ToDoGroup">
+          <End Role="ToDoGroup" Type="Self.ToDoGroup" Multiplicity="1" />
+          <End Role="ToDoGroupConnection" Type="Self.ToDoGroupConnection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ToDoGroup">
+              <PropertyRef Name="ToDoGroupID" />
+            </Principal>
+            <Dependent Role="ToDoGroupConnection">
+              <PropertyRef Name="ToDoGroup_ToDoGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ForeverNotesDomainStoreContainer">
           <EntitySet Name="GroupConnection" EntityType="Self.GroupConnection" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Note" EntityType="Self.Note" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NoteGroup" EntityType="Self.NoteGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RssFeed" EntityType="Self.RssFeed" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tag" EntityType="Self.Tag" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TagConnection" EntityType="Self.TagConnection" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ToDo" EntityType="Self.ToDo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ToDoGroup" EntityType="Self.ToDoGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ToDoGroupConnection" EntityType="Self.ToDoGroupConnection" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_GroupConnection_ToNote" Association="Self.FK_GroupConnection_ToNote">
             <End Role="Note" EntitySet="Note" />
             <End Role="GroupConnection" EntitySet="GroupConnection" />
@@ -118,6 +183,14 @@
           <AssociationSet Name="FK_TagConnection_Tag" Association="Self.FK_TagConnection_Tag">
             <End Role="Tag" EntitySet="Tag" />
             <End Role="TagConnection" EntitySet="TagConnection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ToDoGroupConnection_ToDo" Association="Self.FK_ToDoGroupConnection_ToDo">
+            <End Role="ToDo" EntitySet="ToDo" />
+            <End Role="ToDoGroupConnection" EntitySet="ToDoGroupConnection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ToDoGroupConnection_ToDoGroup" Association="Self.FK_ToDoGroupConnection_ToDoGroup">
+            <End Role="ToDoGroup" EntitySet="ToDoGroup" />
+            <End Role="ToDoGroupConnection" EntitySet="ToDoGroupConnection" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -141,8 +214,8 @@
           <Property Name="NoteID" Type="Int32" Nullable="false" />
           <Property Name="Heading" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="7" />
-          <Property Name="DateModified" Type="DateTime" Precision="7" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Precision="3" Nullable="false" />
           <NavigationProperty Name="GroupConnection" Relationship="Self.FK_GroupConnection_ToNote" FromRole="Note" ToRole="GroupConnection" />
           <NavigationProperty Name="TagConnection" Relationship="Self.FK_TagConnection_Note" FromRole="Note" ToRole="TagConnection" />
         </EntityType>
@@ -246,65 +319,182 @@
             <End Role="Tag" EntitySet="Tag" />
             <End Role="TagConnection" EntitySet="TagConnection" />
           </AssociationSet>
+          <EntitySet Name="ToDo" EntityType="ForeverNotes.Domain.ToDo" />
+          <EntitySet Name="ToDoGroup" EntityType="ForeverNotes.Domain.ToDoGroup" />
+          <EntitySet Name="ToDoGroupConnection" EntityType="ForeverNotes.Domain.ToDoGroupConnection" />
+          <AssociationSet Name="ToDoGroupConnection_ToDo" Association="ForeverNotes.Domain.ToDoGroupConnection_ToDo">
+            <End Role="ToDo" EntitySet="ToDo" />
+            <End Role="ToDoGroupConnection" EntitySet="ToDoGroupConnection" />
+          </AssociationSet>
+          <AssociationSet Name="ToDoGroupConnection_ToDoGroup" Association="ForeverNotes.Domain.ToDoGroupConnection_ToDoGroup">
+            <End Role="ToDoGroup" EntitySet="ToDoGroup" />
+            <End Role="ToDoGroupConnection" EntitySet="ToDoGroupConnection" />
+          </AssociationSet>
+          <EntitySet Name="RssFeed" EntityType="ForeverNotes.Domain.RssFeed" />
         </EntityContainer>
+        <EntityType Name="ToDo">
+          <Key>
+            <PropertyRef Name="ToDoID" />
+          </Key>
+          <Property Name="ToDoID" Type="Int32" Nullable="false" />
+          <Property Name="Content" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Checked" Type="Boolean" />
+          <Property Name="Prioroty" Type="Boolean" />
+          <NavigationProperty Name="ToDoGroupConnection" Relationship="ForeverNotes.Domain.ToDoGroupConnection_ToDo" FromRole="ToDo" ToRole="ToDoGroupConnection" />
+        </EntityType>
+        <EntityType Name="ToDoGroup">
+          <Key>
+            <PropertyRef Name="ToDoGroupID" />
+          </Key>
+          <Property Name="ToDoGroupID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="ToDoGroupConnection" Relationship="ForeverNotes.Domain.ToDoGroupConnection_ToDoGroup" FromRole="ToDoGroup" ToRole="ToDoGroupConnection" />
+        </EntityType>
+        <EntityType Name="ToDoGroupConnection">
+          <Key>
+            <PropertyRef Name="ToDoGroupConnectionID" />
+          </Key>
+          <Property Name="ToDoGroupConnectionID" Type="Int32" Nullable="false" />
+          <Property Name="ToDo_ToDoID" Type="Int32" Nullable="false" />
+          <Property Name="ToDoGroup_ToDoGroupID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ToDo" Relationship="ForeverNotes.Domain.ToDoGroupConnection_ToDo" FromRole="ToDoGroupConnection" ToRole="ToDo" />
+          <NavigationProperty Name="ToDoGroup" Relationship="ForeverNotes.Domain.ToDoGroupConnection_ToDoGroup" FromRole="ToDoGroupConnection" ToRole="ToDoGroup" />
+        </EntityType>
+        <Association Name="ToDoGroupConnection_ToDo">
+          <End Type="ForeverNotes.Domain.ToDo" Role="ToDo" Multiplicity="1" />
+          <End Type="ForeverNotes.Domain.ToDoGroupConnection" Role="ToDoGroupConnection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ToDo">
+              <PropertyRef Name="ToDoID" />
+            </Principal>
+            <Dependent Role="ToDoGroupConnection">
+              <PropertyRef Name="ToDo_ToDoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ToDoGroupConnection_ToDoGroup">
+          <End Type="ForeverNotes.Domain.ToDoGroup" Role="ToDoGroup" Multiplicity="1" />
+          <End Type="ForeverNotes.Domain.ToDoGroupConnection" Role="ToDoGroupConnection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ToDoGroup">
+              <PropertyRef Name="ToDoGroupID" />
+            </Principal>
+            <Dependent Role="ToDoGroupConnection">
+              <PropertyRef Name="ToDoGroup_ToDoGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="RssFeed">
+          <Key>
+            <PropertyRef Name="FeedID" />
+          </Key>
+          <Property Name="FeedID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Url" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ForeverNotesDomainStoreContainer" CdmEntityContainer="ForeverNotesEntities">
-          <EntitySetMapping Name="GroupConnection">
-            <EntityTypeMapping TypeName="ForeverNotes.Domain.GroupConnection">
-              <MappingFragment StoreEntitySet="GroupConnection">
-                <ScalarProperty Name="GroupConnectionID" ColumnName="GroupConnectionID" />
-                <ScalarProperty Name="NoteID" ColumnName="NoteID" />
-                <ScalarProperty Name="NoteGroupID" ColumnName="NoteGroupID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Note">
-            <EntityTypeMapping TypeName="ForeverNotes.Domain.Note">
-              <MappingFragment StoreEntitySet="Note">
-                <ScalarProperty Name="NoteID" ColumnName="NoteID" />
-                <ScalarProperty Name="Heading" ColumnName="Heading" />
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ForeverNotesDomainStoreContainer" CdmEntityContainer="ForeverNotesEntities">
+    <EntitySetMapping Name="GroupConnection">
+      <EntityTypeMapping TypeName="IsTypeOf(ForeverNotes.Domain.GroupConnection)">
+        <MappingFragment StoreEntitySet="GroupConnection">
+          <ScalarProperty Name="GroupConnectionID" ColumnName="GroupConnectionID" />
+          <ScalarProperty Name="NoteID" ColumnName="NoteID" />
+          <ScalarProperty Name="NoteGroupID" ColumnName="NoteGroupID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Note">
+      <EntityTypeMapping TypeName="IsTypeOf(ForeverNotes.Domain.Note)">
+        <MappingFragment StoreEntitySet="Note">
+          <ScalarProperty Name="NoteID" ColumnName="NoteID" />
+          <ScalarProperty Name="Heading" ColumnName="Heading" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NoteGroup">
+      <EntityTypeMapping TypeName="IsTypeOf(ForeverNotes.Domain.NoteGroup)">
+        <MappingFragment StoreEntitySet="NoteGroup">
+          <ScalarProperty Name="NoteGroupID" ColumnName="NoteGroupID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tag">
+      <EntityTypeMapping TypeName="IsTypeOf(ForeverNotes.Domain.Tag)">
+        <MappingFragment StoreEntitySet="Tag">
+          <ScalarProperty Name="TagID" ColumnName="TagID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TagConnection">
+      <EntityTypeMapping TypeName="IsTypeOf(ForeverNotes.Domain.TagConnection)">
+        <MappingFragment StoreEntitySet="TagConnection">
+          <ScalarProperty Name="TagConnectionID" ColumnName="TagConnectionID" />
+          <ScalarProperty Name="NoteID" ColumnName="NoteID" />
+          <ScalarProperty Name="TagID" ColumnName="TagID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+          <EntitySetMapping Name="ToDo">
+            <EntityTypeMapping TypeName="ForeverNotes.Domain.ToDo">
+              <MappingFragment StoreEntitySet="ToDo">
+                <ScalarProperty Name="Prioroty" ColumnName="Prioroty" />
+                <ScalarProperty Name="Checked" ColumnName="Checked" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="ToDoID" ColumnName="ToDoID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="NoteGroup">
-            <EntityTypeMapping TypeName="ForeverNotes.Domain.NoteGroup">
-              <MappingFragment StoreEntitySet="NoteGroup">
-                <ScalarProperty Name="NoteGroupID" ColumnName="NoteGroupID" />
+          <EntitySetMapping Name="ToDoGroup">
+            <EntityTypeMapping TypeName="ForeverNotes.Domain.ToDoGroup">
+              <MappingFragment StoreEntitySet="ToDoGroup">
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ToDoGroupID" ColumnName="ToDoGroupID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ToDoGroupConnection">
+            <EntityTypeMapping TypeName="ForeverNotes.Domain.ToDoGroupConnection">
+              <MappingFragment StoreEntitySet="ToDoGroupConnection">
+                <ScalarProperty Name="ToDoGroup_ToDoGroupID" ColumnName="ToDoGroup_ToDoGroupID" />
+                <ScalarProperty Name="ToDo_ToDoID" ColumnName="ToDo_ToDoID" />
+                <ScalarProperty Name="ToDoGroupConnectionID" ColumnName="ToDoGroupConnectionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RssFeed">
+            <EntityTypeMapping TypeName="ForeverNotes.Domain.RssFeed">
+              <MappingFragment StoreEntitySet="RssFeed">
+                <ScalarProperty Name="Url" ColumnName="Url" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="FeedID" ColumnName="FeedID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Tag">
-            <EntityTypeMapping TypeName="ForeverNotes.Domain.Tag">
-              <MappingFragment StoreEntitySet="Tag">
-                <ScalarProperty Name="TagID" ColumnName="TagID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TagConnection">
-            <EntityTypeMapping TypeName="ForeverNotes.Domain.TagConnection">
-              <MappingFragment StoreEntitySet="TagConnection">
-                <ScalarProperty Name="TagConnectionID" ColumnName="TagConnectionID" />
-                <ScalarProperty Name="NoteID" ColumnName="NoteID" />
-                <ScalarProperty Name="TagID" ColumnName="TagID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -318,7 +508,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>

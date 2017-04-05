@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForeverNotes", "ForeverNote
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForeverNotes.ConsoleApp", "ForeverNotes.ConsoleApp\ForeverNotes.ConsoleApp.csproj", "{2F1AF933-7BE3-437E-9D3D-F4A903FD5953}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForeverNotesWPF", "ForeverNotesWPF\ForeverNotesWPF.csproj", "{E64F754C-9DD0-42E8-AA38-CF4F3761767B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,12 +23,16 @@ Global
 		{2F1AF933-7BE3-437E-9D3D-F4A903FD5953}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F1AF933-7BE3-437E-9D3D-F4A903FD5953}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F1AF933-7BE3-437E-9D3D-F4A903FD5953}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E64F754C-9DD0-42E8-AA38-CF4F3761767B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E64F754C-9DD0-42E8-AA38-CF4F3761767B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E64F754C-9DD0-42E8-AA38-CF4F3761767B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E64F754C-9DD0-42E8-AA38-CF4F3761767B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 3
+		SccNumberOfProjects = 4
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://forevernotes.visualstudio.com/
 		SccLocalPath0 = .
@@ -36,5 +42,8 @@ Global
 		SccProjectUniqueName2 = ForeverNotes\\ForeverNotes.csproj
 		SccProjectName2 = ForeverNotes
 		SccLocalPath2 = ForeverNotes
+		SccProjectUniqueName3 = ForeverNotesWPF\\ForeverNotesWPF.csproj
+		SccProjectName3 = ForeverNotesWPF
+		SccLocalPath3 = ForeverNotesWPF
 	EndGlobalSection
 EndGlobal
